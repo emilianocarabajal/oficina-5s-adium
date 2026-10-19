@@ -3,78 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oficina en Orden · Checklist 5S</title>
+<title>Auditoría 5S Oficina</title>
 
 <style>
 body{
-font-family:Arial, sans-serif;
-margin:0;
-background:#f4f4f4;
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f4f6f9;
 }
 
 header{
-background:#1b5e20;
-color:white;
-padding:20px;
-text-align:center;
+    background:#005a9c;
+    color:white;
+    padding:20px;
+    text-align:center;
 }
 
-main{
-max-width:900px;
-margin:auto;
-padding:20px;
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
 }
 
 .card{
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 2px 5px rgba(0,0,0,.1);
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.15);
 }
 
-h1{
-margin:0;
+h2{
+    color:#005a9c;
+}
+
+.pregunta{
+    margin-bottom:15px;
 }
 
 button{
-background:#2e7d32;
-color:white;
-border:none;
-padding:10px 15px;
-border-radius:6px;
-cursor:pointer;
+    background:#0078d4;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#005fa3;
+}
+
+.resultado{
+    margin-top:20px;
+    font-size:22px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.verde{
+    color:green;
+}
+
+.amarillo{
+    color:orange;
+}
+
+.rojo{
+    color:red;
+}
+
+textarea{
+    width:100%;
+    height:120px;
+    padding:10px;
 }
 </style>
-</head>
 
+</head>
 <body>
 
 <header>
-<h1>Oficina en Orden · Checklist 5S</h1>
-<p>Aplicación de Auditorías 5S</p>
+<h1>Auditoría 5S de Oficina</h1>
+<p>Lista de verificación digital</p>
 </header>
 
-<main>
+<div class="container">
 
 <div class="card">
 
-<h2>Aplicación en construcción</h2>
+<h2>Información General</h2>
 
-<p>
-Tu repositorio está funcionando correctamente.
-</p>
+<label>Auditor:</label>
+<input type="text" id="auditor" style="width:100%;padding:8px;"><br><br>
 
-<p>
-Próximamente aquí estará disponible la auditoría completa.
-</p>
+<label>Área:</label>
+<input type="text" id="area" style="width:100%;padding:8px;"><br><br>
 
-<button onclick="alert('La aplicación se cargó correctamente')">
-Probar
-</button>
+<label>Fecha:</label>
+<input type="date" id="fecha" style="width:100%;padding:8px;">
 
 </div>
 
-</main>
+<div class="card">
+
+<h2>Evaluación 5S</h2>
+
+<div class="pregunta">
+1. ¿Se eliminaron elementos innecesarios?
+<select class="puntaje">
+<option value="0">No</option>
+<option value="1">Sí</option>
+</select>
+</div>
+
+<div class="pregunta">
+2. ¿Los materiales están correctamente ordenados?
+<select class="puntaje">
+<option value="0">No</option>
+<option value="1">Sí</option>
+</select>
+</div>
+
+<div class="pregunta">
+3. ¿El área está limpia?
+<select class="puntaje">
+<option value="0">No</option>
+<option value="1">Sí</option>
+</select>
+</div>
+
+<div class="pregunta">
+4. ¿Existen estándares visuales?
+<select class="puntaje">
+<option value="0">No</option>
+<option value="1">Sí</option>
+</select>
+</div>
+
+<div class="pregunta">
+5. ¿Se mantienen las mejoras en el tiempo?
+<select class="puntaje">
+<option value="0">No</option>
+<option value="1">Sí</option>
+</select>
+</div>
+
+<h3>Observaciones</h3>
+<textarea></textarea>
+
+<br><br>
+
+<button onclick="calcular()">Calcular Resultado</button>
+
+<div id="resultado" class="resultado"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function calcular(){
+
+let preguntas=document.querySelectorAll('.puntaje');
+let total=0;
+
+preguntas.forEach(p=>{
+total+=parseInt(p.value);
+});
+
+let porcentaje=(total/preguntas.length)*100;
+
+let resultado=document.getElementById("resultado");
+
+if(porcentaje>=80){
+resultado.className="resultado verde";
+resultado.innerHTML="✅ Excelente: "+porcentaje+"%";
+}
+else if(porcentaje>=60){
+resultado.className="resultado amarillo";
+resultado.innerHTML="⚠ Aceptable: "+porcentaje+"%";
+}
+else{
+resultado.className="resultado rojo";
+resultado.innerHTML="❌ Requiere mejoras: "+porcentaje+"%";
+}
+
+}
+
+</script>
 
 </body>
 </html>
